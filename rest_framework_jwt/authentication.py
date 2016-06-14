@@ -101,3 +101,13 @@ class JSONWebTokenAuthentication(BaseJSONWebTokenAuthentication):
         authentication scheme should return `403 Permission Denied` responses.
         """
         return '{0} realm="{1}"'.format(api_settings.JWT_AUTH_HEADER_PREFIX, self.www_authenticate_realm)
+
+
+class JSONWebTokenAuthenticationQS(BaseJSONWebTokenAuthentication):
+    """
+    Clients should authenticate by passing the token key as 'access_token'
+    in the query string
+    """
+    
+    def get_jwt_value(self, request):
+        return request.QUERY_PARAMS.get('access_token')
