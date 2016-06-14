@@ -1,6 +1,6 @@
 import jwt
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.utils.encoding import smart_text
 from django.utils.translation import ugettext as _
 from rest_framework import exceptions
@@ -48,7 +48,6 @@ class BaseJSONWebTokenAuthentication(BaseAuthentication):
         """
         Returns an active user that matches the payload's user id and email.
         """
-        User = get_user_model()
         username = jwt_get_username_from_payload(payload)
 
         if not username:
